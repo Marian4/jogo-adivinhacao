@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jogo de Adivinhação</title>
+        <meta charset="UTF-8">
+        <style>
+            body{
+                padding: 50px;
+            }
+            label{
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                font-size: 30;
+            }
+            input{
+                margin: 20px;
+                height: 50;
+                width: 350;
+            }
+            button{
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                height: 20;
+                width: 150;
+            }
+            ol{
+                margin-left: 40%;
+                margin-right: 40%;
+                margin-top: 5%;
+            }
+            #kana{
+                height: 225;
+                width: 300;
+                margin-bottom: 0;
+                margin-left: 80%;
+                height: 225;
+                width: 300;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <center><label>Adivinhe o Número</label></center>
+        <center><input></center>
+        <center><button>Tentar</button></center>
+        <center>
+            <ol>
+                <center>Bem vindo, jogador!</center><br>
+                <li>A cada partida, um número de 0 a 100 será escolhido de forma aleatória.</li>
+                <li>Você terá 3 chances de adivinhar que número é esse.</li>
+                <li>Caso não consiga após três tentativas, uma nova partida irá começar com um novo número.</li>
+                <li>O mesmo acontecerá se você vencer a partida.</li>
+                <li>Divirta-se com esse jogo sem graça :)</li>
+            </ol>
+        </center>
+        <img id="kana" src="kana.png">
+
+    </body>
+    <script>
+
+        var input = document.querySelector("input");
+        input.focus();
+        var button = document.querySelector("button");
+        contador = 1;
+        function Reinicia(){
+            input.value = "";
+            contador = 1;
+            input.focus();
+            resposta = Sorteia()
+            console.log(resposta);
+        }
+        function Sorteia(){
+            return Math.round(Math.random() *100);
+        }
+
+        resposta = Sorteia();
+        console.log(resposta);
+
+        function Verifica(){
+                tentativa = input.value;
+                if (tentativa == resposta){
+                    alert("Você venceu! O número era "+ resposta + ". Agora o número é outro, tente adivinhar");
+                    Reinicia();
+                }
+                else{
+                    if (contador == 3){
+                        alert("Você errou e acabaram as tentativas. A resposta era " + resposta + ". O número agora é outro");
+                        Reinicia();
+                    }
+                    else{
+                        if(tentativa < resposta - 20){
+                            alert("Você errou, o número é bem maior.")
+                        }
+                        else if(tentativa >= resposta - 20 && tentativa < resposta){
+                            alert("Você errou, o número é um pouco maior.")
+                        }
+                        else if(tentativa > resposta + 20){
+                            alert("Você errou, o número é bem menor.")
+                        }
+                        else if(tentativa <= resposta + 20 && tentativa > resposta){
+                            alert("Você errou, o número é um pouco menor.")
+                        }
+                        input.value = "";
+                        input.focus();
+                        contador ++;
+                    }
+                }     
+        }
+
+        button.onclick = Verifica;
+
+    </script>
+</html>
